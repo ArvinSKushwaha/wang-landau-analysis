@@ -1,0 +1,33 @@
+wanglandau2001:
+  type: article
+  authors: ["Wang, Fugao", "Landau, D. P."]
+  title: "Determining the density of states for classical statistical models: A random walk algorithm to produce a flat histogram"
+  parent:
+    type: periodical
+    title: Phys. Rev. E
+    volume: 64
+    issue: 5
+    page-range: 056101-056117
+  date: 2001-10
+  publisher: American Physical Society
+  serial-number:
+    doi: 10.1103/PhysRevE.64.056101
+  url: https://link.aps.org/doi/10.1103/PhysRevE.64.056101
+
+jax2018github:
+  type: repository
+  authors: [James Bradbury, Roy Frostig, Peter Hawkins, Matthew James
+  Johnson, Chris Leary, Dougal Maclaurin, George Necula, Adam Paszke, Jake
+  VanderPlas, Skye Wanderman-Milne, Qiao Zhang]
+  title: "JAX: composable transformations of Python+NumPy programs"
+  url: http://github.com/jax-ml/jax
+  date: 2018
+
+malsagov2017:
+  type: article
+  authors: [M. Yu. Malsagov, I. M. Karandashev, B. V. Kryzhanovsky]
+  title: The Analytical Expressions for a Finite-Size 2D Ising Model
+  date: 2017
+  serial-number:
+    arxiv: 1706.02541
+  url: https://arxiv.org/abs/1706.02541
