@@ -24,10 +24,10 @@
 #set heading(numbering: "1.")
 
 #show raw: set text(
-    font: "FiraCode Nerd Font Mono",
-    ligatures: true,
-    historical-ligatures: true,
-    discretionary-ligatures: true
+  font: "FiraCode Nerd Font Mono",
+  ligatures: true,
+  historical-ligatures: true,
+  discretionary-ligatures: true,
 )
 #show par: set block(spacing: 0.55em)
 #show heading: set block(above: 1.4em, below: 1em)
@@ -68,62 +68,62 @@ gives us $n$ bins of energies: $[E_0, E_1], [E_1, E_2], dots, [E_(n - 2), E_(n
 algorithm generally proceeds as follows: <wang-landau>
 
 #block(
-    width: 100%,
-    fill: mocha-palette.colors.rosewater.rgb,
-    inset: 0.65em,
-    radius: 0.5em,
+  width: 100%,
+  fill: mocha-palette.colors.rosewater.rgb,
+  inset: 0.65em,
+  radius: 0.5em,
 )[
-    #line(length: 100%)
-    #v(-0.75em)
-    #h(0.15em) Wang-Landau (Vanilla)
-    #v(-0.75em)
-    #line(length: 100%)
-    #v(-0.4em)
-    
-    #enum[
-        Initialize the energy histogram, $forall i, H_i = 0$, and the entropy
-        (i.e., $log("density of states")$) $forall i, S_i = 0$, where $H_i$
-        records the number of times a visit to a state with energy in $B_i$ has
-        occurred and $S_i$ is the current estimate of the entropy for the
-        energy range $B_i$.
+  #line(length: 100%)
+  #v(-0.75em)
+  #h(0.15em) Wang-Landau (Vanilla)
+  #v(-0.75em)
+  #line(length: 100%)
+  #v(-0.4em)
 
-        #v(0.35em)
+  #enum[
+    Initialize the energy histogram, $forall i, H_i = 0$, and the entropy
+    (i.e., $log("density of states")$) $forall i, S_i = 0$, where $H_i$
+    records the number of times a visit to a state with energy in $B_i$ has
+    occurred and $S_i$ is the current estimate of the entropy for the
+    energy range $B_i$.
 
-        Initialize a starting state to walk from: $x_0 in Omega$ and let our
-        iteration $k = 0$. Initialize $f = 0$. Additionally, choose some
-        tolerance $epsilon$. A common choice for this is $epsilon = 1 times
+    #v(0.35em)
+
+    Initialize a starting state to walk from: $x_0 in Omega$ and let our
+    iteration $k = 0$. Initialize $f = 0$. Additionally, choose some
+    tolerance $epsilon$. A common choice for this is $epsilon = 1 times
         10^(-8)$.
 
-        #v(0.55em)
-    ][
-        Generate a state transition $x_k -> x'_k$ (with some specific
-        properties). If $E(x_k) in B_a$ and $E(x'_k) in B_b$, then let the
-        acceptance probability $P = min(1, exp(S_a - S_b))$. Let $r$ be a
-        uniform random number in $[0, 1)$, if $r < P$, then let $x_(k + 1) =
+    #v(0.55em)
+  ][
+    Generate a state transition $x_k -> x'_k$ (with some specific
+    properties). If $E(x_k) in B_a$ and $E(x'_k) in B_b$, then let the
+    acceptance probability $P = min(1, exp(S_a - S_b))$. Let $r$ be a
+    uniform random number in $[0, 1)$, if $r < P$, then let $x_(k + 1) =
         x'_k$, otherwise, let $x_(k + 1) = x_k$.
 
-        #v(0.55em)
-    ][
-        If $E(x_(k + 1)) in B_i$, $H_i <- H_i + 1$ and $S_i <- S_i + f$.
+    #v(0.55em)
+  ][
+    If $E(x_(k + 1)) in B_i$, $H_i <- H_i + 1$ and $S_i <- S_i + f$.
 
-        #v(0.55em)
-    ][
-        If the histogram $H$ is "flat," then we set $f <- f\/2$ and reset the
-        histogram to zero: $forall i, H_i = 0$. If $f < epsilon$, then
-        terminate the algorithm, the $S_i$ at the current state represents the
-        $log("density of states")$.
+    #v(0.55em)
+  ][
+    If the histogram $H$ is "flat," then we set $f <- f\/2$ and reset the
+    histogram to zero: $forall i, H_i = 0$. If $f < epsilon$, then
+    terminate the algorithm, the $S_i$ at the current state represents the
+    $log("density of states")$.
 
-        #v(0.35em)
-        
-        For computing "flatness", the test
-        $ (max(H_i) - min(H_i)) / (1/n sum_i H_i) < p $
-        is often used, where a common value for $p$ is 0.05. Adjusting $p$ lets
-        you trade convergence time with accuracy.
+    #v(0.35em)
 
-        #v(0.55em)
-    ][
-        Let $k <- k + 1$, return to step 2.
-    ]
+    For computing "flatness", the test
+    $ (max(H_i) - min(H_i)) / (1 / n sum_i H_i) < p $
+    is often used, where a common value for $p$ is 0.05. Adjusting $p$ lets
+    you trade convergence time with accuracy.
+
+    #v(0.55em)
+  ][
+    Let $k <- k + 1$, return to step 2.
+  ]
 ]
 
 There is some significant freedom in how this algorithm can be implemented to
@@ -138,11 +138,11 @@ p(x_2 -> x_1)$, but in general this is not the case. Notice however, that this f
 With the results of the Wang-Landau algorithm, the density of states: $g(E) = exp(S(E))$, the construction of the partition function is rather straightforward and leads directly to the free energy, internal energy, and heat capacity:
 
 $
-Z & = sum_(s in Omega) e^(-beta E(s)) prop sum_(E) e^(-beta E) g(E) \
-F & = - 1/beta ln Z = - 1/beta ln(sum_E e^(-beta E) g(E)) \
-U & = -(diff ln Z) / (diff beta) = sum_E E e^(-beta E) g(E) \
-C_V & = (diff U) / (diff T) = - beta^2 (diff U) / (diff beta) = beta^2 (diff^2
-    ln Z) / (diff beta^2) = beta^2 sum_E E^2 e^(-beta E) g(E)
+  Z & = sum_(s in Omega) e^(-beta E(s)) prop sum_(E) e^(-beta E) g(E) \
+  F & = - 1 / beta ln Z = - 1 / beta ln(sum_E e^(-beta E) g(E)) \
+  U & = -(diff ln Z) / (diff beta) = sum_E E e^(-beta E) g(E) \
+  C_V & = (diff U) / (diff T) = - beta^2 (diff U) / (diff beta) = beta^2 (diff^2
+  ln Z) / (diff beta^2) = beta^2 sum_E E^2 e^(-beta E) g(E)
 $
 
 Because there are numerous derivatives here, we can take advantage of the JAX
@@ -169,8 +169,8 @@ def internal_energy(beta: float, log_dos: Array, energies: Array):
     min_energy = energies.min()
     return -jax.grad(
         lambda beta: np.log(partition_function(
-            beta, 
-            log_dos, 
+            beta,
+            log_dos,
             energies - min_energy
         ))
     )(beta) + min_energy
@@ -220,9 +220,11 @@ stability.
 We analyze the periodic 2-dimensional Ising model with even side length ($N$)
 given by the following Hamiltonian and configuration space:
 $
-Omega = {-1, +1}^(N^2) => |Omega| = 2^(N^2) \
-cal(H)(s) = -J sum_(i = 1)^(N) sum_(j = 1)^(N) s_(i, j) (s_(i + 1, j) + s_(i, j +
-1)), "where" s in Omega, s_(i, j) = s_(i + N, j) = s_(i, j + N) in {-1, +1}
+  Omega = {-1, +1}^(N^2) => |Omega| = 2^(N^2) \
+  cal(H)(s) = -J sum_(i = 1)^(N) sum_(j = 1)^(N) s_(i, j) (
+    s_(i + 1, j) + s_(i, j +
+    1)
+  ), "where" s in Omega, s_(i, j) = s_(i + N, j) = s_(i, j + N) in {-1, +1}
 $
 
 For the state-space walker in the Wang-Landau algorithm, we use the naive step
@@ -249,49 +251,48 @@ properties of the 2D periodic Ising model, without having had to simulate the
 model at every temperature of relevance.
 
 #figure(
-    image("DOS_Ising.png", width: 80%), 
-    caption: [The rescaled density of states for a 2-dimensional Ising model
+  image("DOS_Ising.png", width: 80%),
+  caption: [The rescaled density of states for a 2-dimensional Ising model
     with periodic boundary conditions and varying side lengths computed with
-    the #link(<wang-landau>, 
+    the #link(<wang-landau>,
         highlight(
             fill: mocha-palette.colors.rosewater.rgb.mix(white)
         )[Wang-Landau algorithm]
-    ).]
-    
+    ).],
 ) <dos_ising>
 
 #figure(
-    image("U_Ising.png", width: 80%), 
-    caption: [The rescaled internal energy for a 2-dimensional Ising model
+  image("U_Ising.png", width: 80%),
+  caption: [The rescaled internal energy for a 2-dimensional Ising model
     with periodic boundary conditions and varying side lengths computed with
-    the #link(<wang-landau>, 
+    the #link(<wang-landau>,
         highlight(
             fill: mocha-palette.colors.rosewater.rgb.mix(white)
         )[Wang-Landau algorithm]
-    ).]
+    ).],
 ) <u_ising>
 
 #figure(
-    image("F_Ising.png", width: 80%), 
-    caption: [The rescaled free energy for a 2-dimensional Ising model
+  image("F_Ising.png", width: 80%),
+  caption: [The rescaled free energy for a 2-dimensional Ising model
     with periodic boundary conditions and varying side lengths computed with
-    the #link(<wang-landau>, 
+    the #link(<wang-landau>,
         highlight(
             fill: mocha-palette.colors.rosewater.rgb.mix(white)
         )[Wang-Landau algorithm]
-    ).]
+    ).],
 ) <f_ising>
 
 #figure(
-    image("C_V_Ising.png", width: 80%), 
-    caption: [The rescaled heat capacity for a 2-dimensional Ising model
+  image("C_V_Ising.png", width: 80%),
+  caption: [The rescaled heat capacity for a 2-dimensional Ising model
     with periodic boundary conditions and varying side lengths computed with
-    the #link(<wang-landau>, 
+    the #link(<wang-landau>,
         highlight(
             fill: mocha-palette.colors.rosewater.rgb.mix(white)
         )[Wang-Landau algorithm]
     ). It can be seen that the peak of the heat capacity curve is converging
-    towards $beta_"ONS"$, the expected critical temperature.]
+    towards $beta_"ONS"$, the expected critical temperature.],
 ) <c_v_ising>
 
 #bibliography("bib.yml")
